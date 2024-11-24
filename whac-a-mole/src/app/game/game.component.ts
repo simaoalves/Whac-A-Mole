@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './game.component.html',
-  styleUrls: ['./game.component.css'],
+  styleUrls: ['./game.component.scss'],
 })
 export class GameComponent {
   gameState$: Observable<GameState>;
