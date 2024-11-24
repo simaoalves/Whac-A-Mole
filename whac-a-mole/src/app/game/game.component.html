@@ -1,0 +1,27 @@
+<div class="game">
+  <!-- Start button: Only visible if the game is inactive -->
+  <button *ngIf="!(gameState$ | async)?.isGameActive" (click)="startGame()">
+    Start Game
+  </button>
+
+  <!-- Game area: Show holes and moles when game is active -->
+  <div class="holes" *ngIf="(gameState$ | async)?.isGameActive">
+    <div
+      *ngFor="let hole of [0, 1, 2, 3, 4, 5]; let i = index"
+      [ngClass]="{ mole: (gameState$ | async)?.molePositions?.[i] ?? false }"
+      (click)="whack(i)"
+    ></div>
+  </div>
+
+  <!-- Score section: Display current and highest score while playing -->
+  <div *ngIf="(gameState$ | async)?.isGameActive">
+    <p>Current Score: {{ (gameState$ | async)?.currentScore ?? 0 }}</p>
+    <p>Highest Score: {{ (gameState$ | async)?.highestScore ?? 0 }}</p>
+  </div>
+
+  <!-- Game Over section: Display after game ends -->
+  <div *ngIf="!(gameState$ | async)?.isGameActive">
+    <p>Game Over! Final Score: {{ (gameState$ | async)?.currentScore ?? 0 }}</p>
+    <button (click)="startGame()">Try Again</button>
+  </div>
+</div>
